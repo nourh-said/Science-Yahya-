@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رحلة يحيى العلمية</title>
+<style>
+:root{--bg:#fff3c4;--bg2:#ffd6e8;--card:#fff;--ink:#2b2350;--mut:#6b6490;--pk:#ff5c98;--bl:#2ab7f0;--gr:#22c38e;--yl:#ffc93c;--rd:#ef476f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1640;--bg2:#2a1d55;--card:#2d2661;--ink:#fff4d6;--mut:#b9b2e6;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--ink);min-height:100vh;font-size:19px}
+#app{max-width:680px;margin:0 auto;padding:14px}
+.card{background:var(--card);border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.08)}
+.hero{text-align:center}
+.big{font-size:84px;line-height:1;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(4deg)}}
+h1{margin:6px 0;font-size:34px;color:var(--pk)}
+h2{margin:4px 0;font-size:23px}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:14px;font:inherit;font-weight:700;font-size:21px;color:#fff;background:var(--pk);box-shadow:0 5px 0 rgba(0,0,0,.2);cursor:pointer;margin:8px 0}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.btn.b{background:var(--bl)}.btn.g{background:var(--gr)}
+.bar{display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px}
+.pill{background:var(--card);border-radius:30px;padding:5px 14px;box-shadow:0 3px 0 rgba(0,0,0,.08)}
+.prog{height:12px;background:rgba(127,127,127,.25);border-radius:9px;overflow:hidden;margin:8px 0}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--yl),var(--gr));transition:width .4s}
+.grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.st{width:64px;height:64px;border-radius:50%;border:0;font:inherit;font-weight:800;font-size:20px;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.st small{font-size:11px}
+.st.lock{background:#9a98a8!important;cursor:not-allowed}
+.q{font-size:23px;font-weight:700;line-height:1.7;margin:6px 0 10px}
+.opt{display:block;width:100%;text-align:right;border:3px solid transparent;border-radius:16px;padding:12px 14px;margin:9px 0;font:inherit;font-size:20px;background:var(--bg);color:var(--ink);cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.1)}
+.opt:hover:not(:disabled){border-color:var(--bl)}
+.opt.ok{background:var(--gr);color:#fff;animation:pop .4s}
+.opt.no{background:var(--rd);color:#fff;animation:shake .4s}
+@keyframes pop{50%{transform:scale(1.04)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.say{display:flex;gap:10px;align-items:center;background:var(--bg);border-radius:18px;padding:10px 12px;margin-top:10px}
+.say span:first-child{font-size:42px}
+.fx{position:fixed;top:-40px;font-size:30px;pointer-events:none;animation:fall 1.4s ease-in forwards;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.2}}
+.stars{font-size:48px;letter-spacing:6px}
+.mut{color:var(--mut);font-size:16px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const Q=/*DATA*/;
+const W=[
+{n:"حديقة الزهور والمجهر",e:"🌸",c:"#ff5c98",f:1,t:70,s:"وصلتَ إلى حديقةٍ عجيبة! ابحث عن أسرار الزهرة والتلقيح وتحكّم بالمجهر السحري 🔬"},
+{n:"جبل النمو والوراثة",e:"🧬",c:"#2ab7f0",f:71,t:135,s:"تسلّق جبل النمو! تعرّف على مراحل حياة الإنسان والصفات الوراثية والعادات الصحية 💪"},
+{n:"غابة الحيوانات والمحميات",e:"🐾",c:"#22c38e",f:136,t:195,s:"مرحبًا في الغابة! هنا نتعلّم كيف تتكاثر الحيوانات وكيف نحمي المحميات الطبيعية 🌿"},
+{n:"جزيرة الطقس والسحب",e:"⛅",c:"#f59e0b",f:196,t:250,s:"آخر محطة! جزيرة الطقس، حيث تتحرك السحب وتعمل الرادارات والأقمار الصناعية 🛰️"}];
+const ST=[];
+W.forEach((w,wi)=>{w.qs=Q.filter(x=>x.n>=w.f&&x.n<=w.t);const k=Math.round(w.qs.length/10),p=Math.ceil(w.qs.length/k);w.ids=[];for(let i=0;i<k;i++){w.ids.push(ST.length);ST.push({w:wi,i,qs:w.qs.slice(i*p,(i+1)*p)})}});
+const GOOD=["أحسنتَ يا يحيى! إجابة ذهبية ✨","ما شاء الله! عقلٌ عبقري! 🧠","رائع! كأنك عالِمٌ حقيقي! 🔬","مذهل! تابع أيها البطل! 🚀","يا لها من إجابةٍ لامعة! ⭐","بارك الله فيك! أصبتَ الهدف 🎯","عظيم! حتى السحب تصفّق لك ☁️👏"];
+const BAD=["لا بأس يا بطل، الأخطاء تصنع العلماء! 💪","اقتربتَ كثيرًا! تعلّم الإجابة وانطلق 🌟","محاولة شجاعة! الصواب مُضاءٌ بالأخضر 🌿","لا تحزن، حتى العلماء يتعلمون من أخطائهم 😄","المهم أنك تتعلّم! هيا إلى السؤال التالي 🚀"];
+let S={p:{},g:0};try{S=JSON.parse(localStorage.getItem("yahya_sci"))||S}catch(e){}
+const save=()=>{try{localStorage.setItem("yahya_sci",JSON.stringify(S))}catch(e){}};
+const $=h=>document.getElementById("app").innerHTML=h;
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.random()*a.length|0];
+function snd(f,d){try{const c=snd.c||(snd.c=new(window.AudioContext||window.webkitAudioContext)()),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.07;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
+function boom(em){for(let i=0;i<16;i++){const s=document.createElement("span");s.className="fx";s.textContent=pick(em);s.style.left=Math.random()*95+"%";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2000)}}
+const stars=i=>S.p[i]||0;
+const total=()=>ST.reduce((a,_,i)=>a+(stars(i)>0?1:0),0);
+function home(){const t=total();$(`<div class="card hero"><div class="big">🦸🏽‍♂️</div><h1>رحلة يحيى العلمية</h1><p>انطلق يا بطل العلوم في رحلةٍ مثيرة عبر أربعة عوالم! أجب عن الأسئلة، اجمع الجواهر 💎 واحصل على الأوسمة 🏅</p><p class="mut">${t} من ${ST.length} محطة مكتملة · 💎 ${S.g}</p><div class="prog"><i style="width:${t/ST.length*100}%"></i></div><button class="btn" onclick="map()">${t?"تابع الرحلة 🚀":"ابدأ الرحلة 🚀"}</button></div>`)}
+function map(){let h=`<div class="bar"><span class="pill">🦸🏽‍♂️ يحيى</span><span class="pill">💎 ${S.g}</span><span class="pill" onclick="home()" style="cursor:pointer">🏠</span></div>`;
+W.forEach((w,wi)=>{const done=w.ids.every(i=>stars(i)>0);h+=`<div class="card" style="border-top:8px solid ${w.c}"><h2>${w.e} ${w.n} ${done?"🏅":""}</h2><div class="mut">${w.ids.filter(i=>stars(i)>0).length} من ${w.ids.length} محطات</div><div class="grid">`;
+w.ids.forEach((id,k)=>{const open=id==0||stars(id-1)>0,s=stars(id);h+=open?`<button class="st" style="background:${w.c}" onclick="play(${id})">${k+1}<small>${"⭐".repeat(s)||"ابدأ"}</small></button>`:`<button class="st lock">🔒</button>`});h+=`</div></div>`});$(h)}
+let G;
+function play(id){const st=ST[id],w=W[st.w];G={id,l:3,i:0,ok:0,sk:0,list:sh(st.qs).map(q=>{const o=sh([0,1,2,3]);return{q:q.q,o:o.map(x=>q.o[x]),a:o.indexOf(q.a),e:q.e}})};
+if(st.i==0&&!stars(id)){$(`<div class="card hero"><div class="big">${w.e}</div><h2>${w.n}</h2><p>${w.s}</p><button class="btn g" onclick="ask()">هيا نبدأ! 🌟</button></div>`)}else ask()}
+function ask(){const q=G.list[G.i],w=W[ST[G.id].w];
+$(`<div class="bar"><span class="pill" onclick="map()" style="cursor:pointer">🗺️</span><span class="pill">${"❤️".repeat(G.l)||"💔"}</span><span class="pill">${G.i+1} / ${G.list.length}</span><span class="pill">💎 ${S.g}</span></div><div class="prog"><i style="width:${G.i/G.list.length*100}%;background:${w.c}"></i></div>
+<div class="card"><div class="q">${q.q}</div>${q.o.map((t,k)=>`<button class="opt" onclick="ans(${k})">${t}</button>`).join("")}<div id="fb"></div></div>`)}
+function ans(k){const q=G.list[G.i],b=document.querySelectorAll(".opt");b.forEach((x,j)=>{x.disabled=true;if(j==q.a)x.classList.add("ok")});let m,e;
+if(k==q.a){G.ok++;G.sk++;S.g++;save();b[k].classList.add("ok");m=pick(GOOD);if(G.sk>=3)m="🔥 سلسلة نارية! "+G.sk+" إجاباتٍ صحيحة متتالية!";e="🦉";snd(660,.12);setTimeout(()=>snd(880,.18),120);boom(["⭐","✨","💎","🎉"])}
+else{G.l--;G.sk=0;b[k].classList.add("no");m=pick(BAD);e="🦉";snd(220,.3)}
+const last=G.i+1>=G.list.length||G.l<=0;
+document.getElementById("fb").innerHTML=`<div class="say"><span>${e}</span><span>${m}</span></div><button class="btn b" onclick="nxt()">${last?"النتيجة 🏁":"التالي ⬅️"}</button>`}
+function nxt(){G.i++;if(G.i>=G.list.length||G.l<=0)end();else ask()}
+function end(){const id=G.id,st=ST[id],w=W[st.w],win=G.l>0,s=G.l>=3?3:G.l==2?2:1;
+if(!win){$(`<div class="card hero"><div class="big">🦉</div><h2>كدتَ تنجح يا بطل!</h2><p>أجبتَ ${G.ok} إجاباتٍ صحيحة. المحاولة الثانية ستكون أفضل بإذن الله، فالتكرار يصنع المهارة! 💪</p><button class="btn" onclick="play(${id})">أعد المحاولة 🔄</button><button class="btn b" onclick="map()">الخريطة 🗺️</button></div>`);snd(300,.4);return}
+const first=!stars(id);if(s>stars(id)){S.p[id]=s}save();snd(784,.2);setTimeout(()=>snd(1046,.3),200);boom(["🎉","⭐","🏅","🎊"]);
+const wd=w.ids.every(i=>stars(i)>0),all=ST.every((_,i)=>stars(i)>0);
+let msg=`أجبتَ ${G.ok} من ${G.list.length} إجابة صحيحة. ما شاء الله!`;
+if(wd&&first)msg+=`<br><br>🏅 <b>حصلتَ على وسام «${w.n}»!</b>`;
+if(all)msg=`🏆 <b>أتممتَ الرحلة كلها يا يحيى! أنت الآن «عالِم العلوم الصغير»</b>، فخورٌ بك أيها البطل!`;
+const nx=id+1<ST.length&&!all;
+$(`<div class="card hero"><div class="big">${all?"🏆":"🎉"}</div><h2>${all?"بطل العلوم!":"أحسنتَ يا يحيى!"}</h2><div class="stars">${"⭐".repeat(s)}</div><p>${msg}</p>${nx?`<button class="btn g" onclick="play(${id+1})">المحطة التالية 🚀</button>`:""}<button class="btn b" onclick="map()">الخريطة 🗺️</button><button class="btn" onclick="play(${id})">أعد المحطة لنجومٍ أكثر 🔄</button></div>`)}
+home();
+</script>
+</body>
+</html>
+ 
